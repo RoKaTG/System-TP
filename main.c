@@ -21,6 +21,7 @@
   @param char *dest
   @return void
 */
+
 void copy(char *src, char *dest) {
   int fileS = open(src, O_RDONLY);
   int fileD = open(dest, O_CREAT | O_WRONLY);
@@ -38,12 +39,45 @@ void copy(char *src, char *dest) {
   close(fileD);
 }
 
+
+/**         Partie 2
+  Obtient les permissions et droits sur les fichiers pendant la copie et les garde après copie
+  @param char *src
+  @param char *dest
+  @return void
+*/
+
 void perm(char *src, char *dest) {
   struct stat state;
   stat(src, &state);
   chmod(dest, state.st_mode);
 }
 
+
+/**
+  Copie le contenu d'un fichier source vers un fichier destination tout en gardant les permissions
+  @param char *src
+  @param char *dest
+  @return void
+*/
+
+void copyPerm(char *src, char *dest) {
+  perm(src, dest);
+  copy(src, dest);
+}
+
+
+/**         Partie 3
+  Copie le contenu d'un repertoir source dans un repertoir destination tout en gardant les permissions
+  @param char *dirS
+  @param char *fileS
+  @param char *path
+  @return NULL
+*/
+
+char pathFromSrc(char *dirS, char *fileS, char *path) {
+  
+}
 
 
 
