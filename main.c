@@ -89,7 +89,29 @@ char pathFromSrc(char *dirS, char *fileS, char *path) {
 	return NULL;
 }
 
+void copy(char *dirsrc,char *dirdest){
+	  DIR *rep = opendir(dirsrc);
+	  struct dirent *lecture;
+	  while ((lecture = readdir (rep)))
+	  {
+	  	if(!strcmp(lecture -> d_name,".") && !strcmp(lecture -> d_name,"..")){
+	  		char *src=constructPath(dirsrc,lecture -> d_name,"/");
+		  	char *dest=constructPath(dirdest,lecture -> d_name,"/");
+		  	printf("%s\n",src );
+		  	printf("%s\n",dest );
+		    cpiFiable(src,dest);
+	  	}
+    }
+  }
 
+
+  /**         Partie 4
+    Copie le contenu d'un repertoir source dans un repertoir destination tout en gardant les permissions de manière recursive
+    @param char *dirS
+    @param char *fileS
+    @param char *path
+    @return NULL
+  */
 
 
 
