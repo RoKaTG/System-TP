@@ -75,7 +75,7 @@ void copyPerm(char *src, char *dest) {
   @return NULL
 */
 
-char pathFromSrc(char *dirS, char *fileS, char *path) {
+char *pathFromSrc(char *dirS, char *fileS, char *path) {
   regex_t regex;
     regcomp (&regex, "/$", REG_EXTENDED);
     char *res = (char *)malloc(strlen(dirS) + strlen(fileS) + 1);
@@ -89,17 +89,17 @@ char pathFromSrc(char *dirS, char *fileS, char *path) {
 	return NULL;
 }
 
-void copy(char *dirsrc,char *dirdest){
+void copy2(char *dirsrc,char *dirdest){
 	  DIR *rep = opendir(dirsrc);
 	  struct dirent *lecture;
 	  while ((lecture = readdir (rep)))
 	  {
 	  	if(!strcmp(lecture -> d_name,".") && !strcmp(lecture -> d_name,"..")){
-	  		char *src=constructPath(dirsrc,lecture -> d_name,"/");
-		  	char *dest=constructPath(dirdest,lecture -> d_name,"/");
+	  		char *src = pathFromSrc(dirsrc,lecture -> d_name,"/");
+		  	char *dest = pathFromSrc(dirdest,lecture -> d_name,"/");
 		  	printf("%s\n",src );
 		  	printf("%s\n",dest );
-		    cpiFiable(src,dest);
+		    copyPerm(src,dest);
 	  	}
     }
   }
@@ -116,7 +116,7 @@ void copy(char *dirsrc,char *dirdest){
 
 
 
-
+/** Code du professeur pour la partie 1 (je m'en suis inspiré)
 int copyfile(const char *iname, const char *oname) {
   int idesc = open(iname, O_RDONLY);
   int odesc = open(oname, O_WRONLY | O_CREAT | O_EXCL, 0666);
@@ -136,3 +136,4 @@ int copyfile(const char *iname, const char *oname) {
   close(odesc);
   return 0;
 }
+*/
