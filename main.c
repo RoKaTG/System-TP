@@ -76,7 +76,17 @@ void copyPerm(char *src, char *dest) {
 */
 
 char pathFromSrc(char *dirS, char *fileS, char *path) {
-  
+  regex_t regex;
+    regcomp (&regex, "/$", REG_EXTENDED);
+    char *res = (char *)malloc(strlen(dirS) + strlen(fileS) + 1);
+    strcpy(res, dirS);
+    if(regexec(&regex, dirS, 0, NULL, 0)){
+         return strcat(strcat(res, path),fileS);
+    }
+    else{
+    	return strcat(res, fileS);
+    }
+	return NULL;
 }
 
 
